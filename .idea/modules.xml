@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/github/500px-android-sdk/500px-android-sdk.iml" filepath="$USER_HOME$/github/500px-android-sdk/500px-android-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FiveHundredPxTest.iml" filepath="$PROJECT_DIR$/FiveHundredPxTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../Code/android/ActionBarSherlock/actionbarsherlock/actionbarsherlock.iml" filepath="$PROJECT_DIR$/../../../Code/android/ActionBarSherlock/actionbarsherlock/actionbarsherlock.iml" />
+      <module fileurl="file://$USER_HOME$/github/volley/volley.iml" filepath="$USER_HOME$/github/volley/volley.iml" />
+    </modules>
+  </component>
+</project>
+

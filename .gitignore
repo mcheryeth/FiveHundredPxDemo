@@ -1,0 +1,15 @@
+**bin/
+.metadata
+.metadata/
+.metadata/*
+**gen/
+**.settings/
+**.DS_Store
+**tmp/
+**local.properties
+**.dex
+**.class
+*.orig
+*/.idea/workspace.xml
+*/.idea/tasks.xml
+**out/

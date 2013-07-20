@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FiveHundredPxDemo</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="px.consumer.key">vFlLsHWW5WfvrCoYMLqtgIe5sOZgaLJNs7Rd4R57</string>
+    <string name="px.consumer.secret">34ecKGIcru31l2WO25dYSPTn3JLlawA532vNnxaM</string>
+    <string name="login_500px_label">Login with 500px</string>
+    <string name="logout_500px_label">Logout</string>
+    <string name="menu_settings">Settings</string>
+
+</resources>
