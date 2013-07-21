@@ -9,7 +9,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JacksonRequest;
 import com.android.volley.toolbox.Volley;
-import com.fivehundredpxdemo.Application;
+import com.fivehundredpxdemo.android.Application;
+import com.fivehundredpxdemo.android.R;
 import com.fivehundredpxdemo.android.model.Photo;
 import com.fivehundredpxdemo.android.model.PhotoStream;
 
@@ -24,14 +25,20 @@ public class PhotoServiceApi {
 
     public static final int MAX_PHOTOS = 600;
     private static final String BASE_URL = "https://api.500px.com/v1/photos?include_store=store_download&include_states=voted";
+    //FIXME:
+    //private final static String CONSUMER_KEY = "vFlLsHWW5WfvrCoYMLqtgIe5sOZgaLJNs7Rd4R57"; //for now
     private Context mContext;
 
     //private static PhotoServiceApi mPhotoServiceApi;
     private RequestQueue mRequestQueue;
+    private JacksonRequest currRequest;
     private PhotoServiceApiDelegate delegate;
+
+    private boolean isLoading = false;
 
     public interface PhotoServiceApiDelegate {
         public void onFetchPhotosComplete(List<Photo> photos);
+        public void onFetchPhotosError(String errorMsg);
 
     }
 
@@ -42,37 +49,53 @@ public class PhotoServiceApi {
 
     }
 
-    public void asyncFetchPhotos(String feature, String sortBy, int imageSize, int page, String category, String consumerKey){
+    public void asyncFetchPhotos(String feature, String sortBy, int imageSize, int page, String category, String token){
 
+        String consumerKey = getConsumerKey();
         final String finalUrl = String.format("%s&feature=%s&sort=%s&image_size=%s&page=%s&only=%s&consumer_key=%s", BASE_URL,
                 feature, sortBy, String.valueOf(imageSize), String.valueOf(page), category, consumerKey);
 
-        mRequestQueue.add(
-                new JacksonRequest(finalUrl, PhotoStream.class, "", new Response.Listener<PhotoStream>() {
-                    @Override
-                    public void onResponse(PhotoStream response) {
-                        Log.d(TAG, "Fetched photo stream..");
-                        if(response!=null){
-                            Log.d(TAG, response.toString());
-                               delegate.onFetchPhotosComplete(response.getPhotos());
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.w(TAG, "Could not fetch photos due to failure. " + error.getMessage());
-                    }
+        currRequest =  new JacksonRequest(finalUrl, PhotoStream.class, token, new Response.Listener<PhotoStream>() {
+            @Override
+            public void onResponse(PhotoStream response) {
+                Log.d(TAG, "Fetched photo stream..");
+                if(response!=null && isLoading){
+                    Log.d(TAG, response.toString());
+                    isLoading = false;
+                    delegate.onFetchPhotosComplete(response.getPhotos());
                 }
-        ));
-        mRequestQueue.start();
 
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                isLoading = false;
+                Log.w(TAG, "Could not fetch photos due to failure. " + error.getMessage());
+                delegate.onFetchPhotosError(error.getMessage());
+            }
+        }
+        );
+        isLoading = true;
+        mRequestQueue.add(currRequest);
+        mRequestQueue.start();
 
     }
 
+    public void cancelRequests(){
+        isLoading = false;
+        mRequestQueue.stop();
+        mRequestQueue.cancelAll(currRequest);
+        currRequest = null;
+    }
+
+
     public String getAccessToken(){
         SharedPreferences preferences = mContext.getSharedPreferences(Application.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        return preferences.getString(Application.PREF_ACCES_TOKEN, null);
+        return preferences.getString(Application.PREF_ACCESS_TOKEN, null);
+    }
+
+    public String getConsumerKey(){
+        return mContext.getString(R.string.px_consumer_key);
     }
 
 //    public static PhotoServiceApi getSingleton(){

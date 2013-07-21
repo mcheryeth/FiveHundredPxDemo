@@ -15,9 +15,9 @@
     <orderEntry type="module" module-name="500px-android-sdk" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="module" module-name="volley" />
     <orderEntry type="library" name="vlibs" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>
 

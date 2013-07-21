@@ -21,4 +21,24 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="left_drawer">
+        <item name="android:id">@+id/left_drawer</item>
+        <item name="android:name">com.fivehundredpxdemo.android.ui.fragment.MenuListFragment</item>
+        <item name="android:layout_width">@dimen/drawer_width</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+    </style>
+
+    <style name="Theme.FiveHundredPxDemo" parent="Theme.Sherlock">
+        <item name="android:windowBackground">@color/abs__background_holo_dark</item>
+        <item name="android:actionBarStyle">@style/Widget.FiveHundredPxDemo.ActionBar</item>
+        <item name="actionBarStyle">@style/Widget.FiveHundredPxDemo.ActionBar</item>
+
+    </style>
+
+    <style name="Widget.FiveHundredPxDemo.ActionBar" parent="Widget.Sherlock.ActionBar">
+        <item name="android:background">@drawable/actionbar_background</item>
+        <item name="background">@drawable/actionbar_background</item>
+    </style>
+
 </resources>

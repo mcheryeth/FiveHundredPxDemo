@@ -1,7 +1,7 @@
 package com.fivehundredpxdemo.android.model;
 
 import com.fivehundredpx.api.auth.AccessToken;
-import com.fivehundredpxdemo.Application;
+import com.fivehundredpxdemo.android.Application;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

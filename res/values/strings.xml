@@ -10,4 +10,33 @@
     <string name="logout_500px_label">Logout</string>
     <string name="menu_settings">Settings</string>
 
+    <!-- Navigation Drawer Strings -->
+    <string name="drawer_open">Open Navigation Drawer</string>
+    <string name="drawer_close">Close Navigation Drawer</string>
+
+    <string-array name="photos_category">
+        <item>Landscapes</item>
+        <item>Nature</item>
+    </string-array>
+
+    <string-array name="photos_feature">
+        <item>popular</item>
+        <item>upcoming</item>
+        <item>editors</item>
+        <item>fresh_today</item>
+        <item>fresh_yesterday</item>
+        <item>fresh_week</item>
+        <item>user</item>
+    </string-array>
+
+    <string-array name="menu_photos_feature">
+        <item>Popular</item>
+        <item>Upcoming</item>
+        <item>Editors Choice</item>
+        <item>Fresh Today</item>
+        <item>Fresh Yesterday</item>
+        <item>Fresh Week</item>
+        <item>User</item>
+    </string-array>
+
 </resources>

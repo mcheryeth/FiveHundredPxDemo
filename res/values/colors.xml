@@ -2,4 +2,25 @@
 
     <color name="black_overlay">#66000000</color>
 
+    <!-- Drawer -->
+    <color name="drawer_background">#272727</color>
+    <color name="drawer_divider">#484848</color>
+    <color name="drawer_row_selected_background">#525152</color>
+
+    <!-- Action Bar -->
+    <color name="actionbar_title_color">#FFFFFF</color>
+    <color name="action_bar_background">#0072c6</color>
+    <color name="action_bar_top_divider">#2693ff</color>
+    <color name="action_bar_bottom_divider">#003f93</color>
+    <color name="action_bar_backgroundsplit">#666666</color>
+    <color name="action_bar_image_subtitle">#E6FFFFFF</color>
+
+    <!-- Drawer list view -->
+    <color name="drawer_listview_item_pressed_color">#CC0072c6</color>
+    <color name="drawer_listview_item_selected_color">#990072c6</color>
+
+    <!-- Dividers -->
+    <color name="common_divider">#999999</color>
+
+
 </resources>

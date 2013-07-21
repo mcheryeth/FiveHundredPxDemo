@@ -19,20 +19,20 @@ import com.fivehundredpx.api.PxApi;
 import com.fivehundredpx.api.auth.AccessToken;
 import com.fivehundredpx.api.tasks.UserDetailTask;
 import com.fivehundredpx.api.tasks.XAuth500pxTask;
-import com.fivehundredpxdemo.Application;
-import com.fivehundredpxdemo.android.model.CurrentUser;
+import com.fivehundredpxdemo.android.Application;
 import com.fivehundredpxdemo.android.R;
+import com.fivehundredpxdemo.android.model.CurrentUser;
 import com.google.inject.Inject;
+import com.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.activity_login)
-public class LoginActivity extends RoboActivity implements
+public class LoginActivity extends RoboSherlockFragmentActivity implements
 		XAuth500pxTask.Delegate, UserDetailTask.Delegate {
 
 
@@ -53,7 +53,7 @@ public class LoginActivity extends RoboActivity implements
 
 		SharedPreferences preferences = getSharedPreferences(Application.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-		final String accesToken = preferences.getString(Application.PREF_ACCES_TOKEN, null);
+		final String accesToken = preferences.getString(Application.PREF_ACCESS_TOKEN, null);
 		final String tokenSecret = preferences
 				.getString(Application.PREF_TOKEN_SECRET, null);
 
@@ -87,7 +87,7 @@ public class LoginActivity extends RoboActivity implements
 		
 		SharedPreferences preferences = getSharedPreferences(Application.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
-		editor.putString(Application.PREF_ACCES_TOKEN, result.getToken());
+		editor.putString(Application.PREF_ACCESS_TOKEN, result.getToken());
 		editor.putString(Application.PREF_TOKEN_SECRET, result.getTokenSecret());
 		editor.commit();
 		
