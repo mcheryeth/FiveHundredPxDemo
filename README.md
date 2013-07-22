@@ -1,7 +1,7 @@
 # 500px demo photo app on Android
 
 
-This is a demo app that uses the 500px REST API to display a series of beautiful high quality photos categorically. Feast for the eyes.
+This is a demo app that uses the 500px REST API to display a series of beautiful high quality photos. Feast for the eyes.
 This README is a work-in-progress, don't be surprised if some steps are missing :).
 
 ## Setting up your dev environment
@@ -35,16 +35,35 @@ This README is a work-in-progress, don't be surprised if some steps are missing 
 		
 ## Troubleshooting
 
-* Check your Modules! Check your dependencies!
-* Build errors in Eclipse: Check the 'Problems' window first. Make sure your build paths are correct. 
+* Check your project modules! Check your dependencies!
+* Build errors in Eclipse: Check the 'Problems' window first. Make sure your build paths are correct.
 * It should all work. You have the power to fix it
-* Or just contact me :).
+* Or just contact me :)
+
+## Architecture
+
+The app follows the classic MVC pattern. The project structure is organized into:
+
+* Models - These are your POJOs (Photo, User, etc) and data storage classes for caching
+* Views - This is your UI. Activities, views, adapters, etc
+* Controllers - This handles your networking. API requests to 500Px, JSON parsing, callbacks to UI, etc. Currently only supports fetching photos (PhotoServiceApi)
+
+## Limitations
+
+* Always loads from network. Need a better persistence mechanism besides the disk cache. In the future use an indexed database to store data for quick retrieval.
+* Other stuff: User photos, Photo uploads, Photo share
+
+## Future improvements
+
+* See above
+* Fix bugs. No code is perfect.
+* Add more features. Maybe just build out everything for fun ;)
 
 ## Screenshots
 |![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic1.png)|
 ![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic2.png)|
 ![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic3.png)|
 
-*Enjoy Playin' and droolin' :)*
+*Enjoy playin' and droolin'  :)*
 
 **- Melville Cheryeth**
