@@ -10,7 +10,7 @@ the drop down to change the category. Tap a photo to view it in fullscreen.
 The project is organized into the following structure:
 
 * Models - These are your POJOs (Photo, User, etc) and data storage classes for caching
-* Views - This is your UI. Activities, views, adapters, etc
+* Views - This is your UI. Activities, fragments, views, adapters, etc
 * Controllers - This handles your networking. API requests to 500px, JSON parsing, callbacks to UI, etc. Currently only supports fetching photos (PhotoServiceApi)
 
 ## Limitations & improvements
@@ -18,7 +18,7 @@ The project is organized into the following structure:
 * Always loads from network. Need a better persistence mechanism besides the disk cache. Use an indexed SQL database with cursors (fastest, more work)
   or cache JSON in file (slower, less work) or maybe even serialize all the data (slowest, easiest).
 * Add other stuff: User photos, Photo uploads, Photo share, horizontally scrolling images (view pager), etc
-* And one more thing...bugs
+* Fix bugs. Ofcourse.
 
 ## Challenges
 
