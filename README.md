@@ -25,7 +25,7 @@ The project is organized into the following structure:
 * The 500px REST API was straightforward to learn and play. Nicely documented. 
   The provided SDK, however, was somewhat limiting for me. So I ended up writing my own simple API to fetch the photos by using Google's new Volley networking framework, which is great
   because it reduces a lot of boiler plate code and handles JSON parsing and image loading/caching among other things.
-* Getting the user experience right. Making the UI easy and intuitive to use.
+* Getting the user experience and design right. Making the UI easy and intuitive to use.
 
 
 ## Setting up your environment
