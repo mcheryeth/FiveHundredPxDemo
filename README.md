@@ -17,13 +17,16 @@ The project is organized into the following structure:
 
 * Always loads from network. Need a better persistence mechanism besides the disk cache. Use an indexed SQL database with cursors (fastest, more work)
   or cache JSON in file (slower, less work) or maybe even serialize all the data (slowest, easiest).
-* Other stuff: User photos, Photo uploads, Photo share, etc
+* Add other stuff: User photos, Photo uploads, Photo share, horizontally scrolling images (view pager), etc
+* And one more thing...bugs
 
 ## Challenges
 
-  The 500px REST API was straightforward to learn and play. Nicely documented. 
-  The provided SDK, however, was somewhat limiting for me. I ended up writing my own simple API to fetch the photos by using Google's new Volley networking framework, which is great
+* The 500px REST API was straightforward to learn and play. Nicely documented. 
+  The provided SDK, however, was somewhat limiting for me. So I ended up writing my own simple API to fetch the photos by using Google's new Volley networking framework, which is great
   because it reduces a lot of boiler plate code and handles JSON parsing and image loading/caching among other things.
+* Getting the user experience right. Making the UI easy and intuitive to use.
+
 
 ## Setting up your environment
 
