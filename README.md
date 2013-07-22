@@ -40,5 +40,4 @@ Or just contact me :).
 
 Enjoy Playin' and droolin' :)
 
-Thank you,
-Melville Cheryeth
+- Melville Cheryeth

@@ -24,6 +24,7 @@ import com.fivehundredpxdemo.android.R;
 import com.fivehundredpxdemo.android.imageloader.ImageFetcher;
 import com.fivehundredpxdemo.android.model.Photo;
 import com.fivehundredpxdemo.android.service.PhotoServiceApi;
+import com.fivehundredpxdemo.android.ui.ImageDetailActivity;
 import com.fivehundredpxdemo.android.ui.LoginActivity;
 import com.fivehundredpxdemo.android.ui.adapter.ImageFeedAdapter;
 import com.fivehundredpxdemo.android.ui.adapter.ImageFeedTitleAdapter;
@@ -50,7 +51,8 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
     private int currentPage;
     private boolean isLoadingInBackground;
 
-    private final static int CURRENT_IMAGE_SIZE = IMAGE_SIZE.IMAGE_280x280.getPosition() + 1;
+    private final static int IMAGE_FEED_THUMBNAIL = IMAGE_SIZE.IMAGE_280x280.getPosition() + 1;
+    private final static int IMAGE_DETAIL_THUMBNAIL = IMAGE_SIZE.IMAGE_900x900.getPosition() + 1;
     private static final String TAG = ImageFeedFragment.class.getName();
     public static final String EXTRA_CURRENT_USER_TOKEN = "extra_current_user_token";
     public static final String EXTRA_SELECTED_FEATURE = "extra_selected_feature";
@@ -141,7 +143,13 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public 	void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
+                ImageFeedAdapter imageFeedAdapter = (ImageFeedAdapter)gridView.getAdapter();
+                Photo currentPhoto = (Photo)imageFeedAdapter.getItem(position);
+                Intent imageDetailIntent = new Intent(getActivity(), ImageDetailActivity.class);
+                imageDetailIntent.putExtra(ImageDetailActivity.EXTRA_CURRENT_PHOTO, currentPhoto);
+                startActivity(imageDetailIntent);
+
             }
         });
 
@@ -174,8 +182,8 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
         showProgress(true);
         isLoadingInBackground = true;
 
-        mPhotoServiceApi.asyncFetchPhotos(selectedFeature, "rating",
-                CURRENT_IMAGE_SIZE, currentPage, selectedCategory, accessToken);
+        mPhotoServiceApi.fetchPhotosFromNetwork(selectedFeature, "rating",
+                IMAGE_FEED_THUMBNAIL, IMAGE_DETAIL_THUMBNAIL, currentPage, selectedCategory, accessToken);
 
     }
 
@@ -245,7 +253,7 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
                     Log.d(TAG, "Loading more photos....page:" + currentPage);
 
                     refreshPhotos(selectedFeature, selectedCategory);
-                    //mPhotoServiceApi.asyncFetchPhotos(selectedFeature, "rating", CURRENT_IMAGE_SIZE, currentPage, selectedCategory, CONSUMER_KEY);
+                    //mPhotoServiceApi.fetchPhotosFromNetwork(selectedFeature, "rating", IMAGE_FEED_THUMBNAIL, currentPage, selectedCategory, CONSUMER_KEY);
                 }
             }
         });

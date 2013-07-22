@@ -60,7 +60,7 @@ public class ImageFeedActivity extends RoboSherlockFragmentActivity implements M
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
-                supportActionBar.setTitle(user.fullname);
+                supportActionBar.setTitle(user.getFullname());
                 supportActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
                 invalidateOptionsMenu();
             }

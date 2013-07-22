@@ -1,16 +1,15 @@
 package com.fivehundredpxdemo.android.ui.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.fivehundredpxdemo.android.R;
+import com.fivehundredpxdemo.android.ui.adapter.MenuListAdapter;
 
 /**
  * Created by mcheryeth on 7/20/13.
@@ -68,37 +67,6 @@ public class MenuListFragment extends SherlockListFragment {
             parentMenuActivity.loadFeature(position);
         }
 
-    }
-
-    private class MenuListAdapter extends ArrayAdapter<String>{
-
-        private int selectedPosition=0;
-
-        public MenuListAdapter(Context context, int textViewResourceId, String[] objects) {
-            super(context, textViewResourceId, objects);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view = super.getView(position, convertView, parent);
-            if(position == selectedPosition)
-            {
-                view.setBackgroundResource(R.color.drawer_listview_item_selected_color);
-            }
-            else{
-                view.setBackgroundResource(android.R.color.transparent);
-            }
-            return view;
-        }
-
-        public void setSelectedPosition(int position){
-            selectedPosition = position;
-            this.notifyDataSetChanged();
-        }
-
-        public int getSelectedPosition(){
-            return selectedPosition;
-        }
     }
 
 }

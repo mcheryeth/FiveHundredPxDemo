@@ -116,8 +116,8 @@ public class LoginActivity extends RoboSherlockFragmentActivity implements
 	public void onSuccess(JSONObject user) {
 		//Log.w(TAG, user.toString());
 		try {
-			this.user.userpic_url = user.getString("userpic_url");
-			this.user.fullname = user.getString("fullname");
+			this.user.setUserpic_url(user.getString("userpic_url"));
+			this.user.setFullname(user.getString("fullname"));
 		} catch (JSONException e) {
 			Log.e(TAG, "", e);
 		}

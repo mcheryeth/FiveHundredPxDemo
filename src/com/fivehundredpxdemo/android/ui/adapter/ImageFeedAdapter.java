@@ -42,7 +42,7 @@ public class ImageFeedAdapter extends BaseAdapter {
         return photos.size();
     }
 
-    public Object getItem(int position) {
+    public Photo getItem(int position) {
         return photos.get(position);
     }
 
@@ -66,13 +66,13 @@ public class ImageFeedAdapter extends BaseAdapter {
             imageView = new NetworkImageView(mContext); //ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             imageView.setScaleType(ImageView.ScaleType.CENTER);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(5, 5, 5, 5);
         } else {
             imageView = (NetworkImageView) convertView;
         }
 
         //imageFetcher.loadThumbnailImage(photo.getImage_url(), imageView);
-        imageView.setImageUrl(photo.getImage_url(), imageLoader);
+        imageView.setImageUrl(photo.getImage_url()[0], imageLoader);
         return imageView;
 
 

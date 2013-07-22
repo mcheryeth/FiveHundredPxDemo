@@ -49,11 +49,13 @@ public class PhotoServiceApi {
 
     }
 
-    public void asyncFetchPhotos(String feature, String sortBy, int imageSize, int page, String category, String token){
+    public void fetchPhotosFromNetwork(String feature, String sortBy, int feedThumbnailSize, int detailThumbnailSize,
+                                       int page, String category, String token){
 
         String consumerKey = getConsumerKey();
-        final String finalUrl = String.format("%s&feature=%s&sort=%s&image_size=%s&page=%s&only=%s&consumer_key=%s", BASE_URL,
-                feature, sortBy, String.valueOf(imageSize), String.valueOf(page), category, consumerKey);
+        final String finalUrl = String.format("%s&feature=%s&sort=%s&image_size[]=%s&image_size[]=%s&page=%s&only=%s&consumer_key=%s", BASE_URL,
+                feature, sortBy, String.valueOf(feedThumbnailSize), String.valueOf(detailThumbnailSize),
+                String.valueOf(page), category, consumerKey);
 
         currRequest =  new JacksonRequest(finalUrl, PhotoStream.class, token, new Response.Listener<PhotoStream>() {
             @Override

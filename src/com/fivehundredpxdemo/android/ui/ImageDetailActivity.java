@@ -1,14 +1,26 @@
 package com.fivehundredpxdemo.android.ui;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.fivehundredpxdemo.android.R;
+import com.fivehundredpxdemo.android.imageloader.DiskBitmapCache;
+import com.fivehundredpxdemo.android.model.Photo;
+import com.fivehundredpxdemo.android.ui.views.TouchNetworkImageView;
 import com.fivehundredpxdemo.android.util.SystemUiHider;
 
 /**
@@ -17,7 +29,7 @@ import com.fivehundredpxdemo.android.util.SystemUiHider;
  * 
  * @see SystemUiHider
  */
-public class ImageDetailActivity extends Activity {
+public class ImageDetailActivity extends SherlockFragmentActivity {
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -46,15 +58,63 @@ public class ImageDetailActivity extends Activity {
 	 */
 	private SystemUiHider mSystemUiHider;
 
+    //Volley's network image loader
+    private ImageLoader imageLoader;
+
+    private Photo currentPhoto;
+    private TouchNetworkImageView imageView;
+
+    public static final String EXTRA_CURRENT_PHOTO = "extra_current_photo";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_image_detail);
 
-		final View controlsView = findViewById(R.id.fullscreen_content_controls);
-		final View contentView = findViewById(R.id.fullscreen_content);
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setHomeButtonEnabled(true);
+        supportActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        supportActionBar.setCustomView(R.layout.image_detail_title);
+        supportActionBar.show();
 
+		final View controlsView = findViewById(R.id.fullscreen_content_controls);
+		final View contentView = findViewById(R.id.niv_large);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(getCacheDir())); //volley's image loader
+
+        String errorMsg;
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            try{
+                Photo photo = (Photo)extras.getSerializable(EXTRA_CURRENT_PHOTO);
+                if(photo!=null){
+                    currentPhoto = photo;
+                    //load photo
+                    imageView = (TouchNetworkImageView)contentView;
+                    imageView.setImageUrl(photo.getImage_url()[1], imageLoader);
+                    //set image name
+                    ((TextView)supportActionBar.getCustomView().findViewById(R.id.imageDetailTitle)).setText(photo.getName());
+                    //set user name
+                    ((TextView)findViewById(R.id.username)).setText(photo.getUser().getFullname());
+                    //set rating
+                    ((TextView)findViewById(R.id.rating)).setText("Rating: " + photo.getRating());
+                }
+                else{
+                    errorMsg = "Unable to display photo. Photo not found!";
+                    Log.e(ImageDetailActivity.class.getName(), errorMsg);
+                    Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (Exception e){
+                errorMsg = "Unable to display photo. " + e.getMessage();
+                Log.e(ImageDetailActivity.class.getName(), errorMsg);
+                Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+            }
+
+        }
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
 		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
@@ -115,7 +175,7 @@ public class ImageDetailActivity extends Activity {
 		// Upon interacting with UI controls, delay any scheduled hide()
 		// operations to prevent the jarring behavior of controls going away
 		// while interacting with the UI.
-		findViewById(R.id.dummy_button).setOnTouchListener(
+		findViewById(R.id.fullscreen_content_controls).setOnTouchListener(
 				mDelayHideTouchListener);
 	}
 
@@ -160,4 +220,30 @@ public class ImageDetailActivity extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            imageView.setScaleType(TouchNetworkImageView.ScaleType.FIT_XY);
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            imageView.setScaleType(TouchNetworkImageView.ScaleType.FIT_CENTER);
+        }
+    }
 }

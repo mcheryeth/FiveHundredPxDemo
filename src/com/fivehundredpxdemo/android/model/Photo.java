@@ -56,7 +56,7 @@ public class Photo implements Serializable{
     private int license_type;
 
     @JsonProperty("image_url")
-    private String image_url;
+    private String[] image_url;
 
     @JsonProperty("store_download")
     private boolean store_download;
@@ -136,7 +136,7 @@ public class Photo implements Serializable{
         return license_type;
     }
 
-    public String getImage_url() {
+    public String[] getImage_url() {
         return image_url;
     }
 
