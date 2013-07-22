@@ -13,19 +13,19 @@ The project is organized into the following structure:
 * Views - This is your UI. Activities, views, adapters, etc
 * Controllers - This handles your networking. API requests to 500px, JSON parsing, callbacks to UI, etc. Currently only supports fetching photos (PhotoServiceApi)
 
-## Limitations
+## Limitations & improvements
 
 * Always loads from network. Need a better persistence mechanism besides the disk cache. Use an indexed SQL database with cursors (fastest, more work)
   or cache JSON in file (slower, less work) or maybe even serialize all the data (slowest, easiest).
 * Other stuff: User photos, Photo uploads, Photo share, etc
 
-## Future improvements
+## Challenges
 
-* See above
-* Fix bugs. No code is perfect.
-* Add more features. Maybe just build out everything for fun ;)
+  The 500px REST API was straightforward to learn and play. Nicely documented. 
+  The provided SDK, however, was somewhat limiting for me. I ended up writing my own simple API to fetch the photos by using Google's new Volley networking framework, which is great
+  because it reduces a lot of boiler plate code and handles JSON parsing and image loading/caching among other things.
 
-## Setting up your dev environment
+## Setting up your environment
 
 1. Install developer tools
 	* Download the [Android SDK] (http://developer.android.com/sdk/index.html). This project targets Android 4.2.2 (Jellybean) SDK
