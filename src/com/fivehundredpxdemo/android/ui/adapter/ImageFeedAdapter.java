@@ -29,12 +29,6 @@ public class ImageFeedAdapter extends BaseAdapter {
         this.photos = photos;
         RequestQueue requestQueue = Volley.newRequestQueue(c);
         imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(c.getCacheDir()));  //use disk cache
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-//            imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(c.getCacheDir()));  //use disk cache
-//        }
-//        else{
-//            imageLoader = new ImageLoader(requestQueue, new BitmapCache(4)); //use bitmap cache. bug in volley for disk cache
-//        }
     }
 
     public List<Photo> getPhotos() {
@@ -63,9 +57,6 @@ public class ImageFeedAdapter extends BaseAdapter {
         Photo photo = (Photo)getItem(position);
         NetworkImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
-            //viewHolder = new ViewHolder();
-            //convertView = lf.inflate(R.layout.row_listview,null);
-
             imageView = new NetworkImageView(mContext); //ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             imageView.setScaleType(ImageView.ScaleType.CENTER);
@@ -81,7 +72,4 @@ public class ImageFeedAdapter extends BaseAdapter {
 
     }
 
-    public class ViewHolder {
-        ImageView thumbnailView;
-    }
 }

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This is the main photo feed fragment that displays a list of photos on a grid. Uses a side drawer to select the
+ * appropriate feature and a drop down menu to select the category
  * Created by mcheryeth on 7/20/13.
  */
 public class ImageFeedFragment extends SherlockFragment implements PhotoServiceApi.PhotoServiceApiDelegate {
@@ -116,8 +118,6 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
         selectedFeature = features[extraFeature];
         currentPage = 1;
 
-//        SpinnerAdapter photosCategoryAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.photos_category,
-//                android.R.layout.simple_spinner_dropdown_item);
         String[] menuFeatureItems = res.getStringArray(R.array.menu_photos_feature);
         ImageFeedTitleAdapter imageFeedTitleAdapter = new ImageFeedTitleAdapter(getSherlockActivity(), menuFeatureItems[extraFeature], R.array.photos_category,
                 android.R.layout.simple_spinner_dropdown_item);
@@ -145,7 +145,6 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public 	void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                //Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
                 ImageFeedAdapter imageFeedAdapter = (ImageFeedAdapter)gridView.getAdapter();
                 Photo currentPhoto = (Photo)imageFeedAdapter.getItem(position);
                 Intent imageDetailIntent = new Intent(getActivity(), ImageDetailActivity.class);
@@ -155,11 +154,8 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
             }
         });
 
-        //consumerKey = getString(R.string.px_consumer_key);
-        //Log.d(ImageFeedActivity.class.getName(), "Access token is: " + token);
         isFirstLoad = true;
         fetchPhotos(selectedFeature, selectedCategory);
-
 
         //Infinite scroll: Load new images as the user scrolls to the bottom
         prepareEndlessScroll();
@@ -174,7 +170,6 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
         if(!category.equals(selectedCategory) || !feature.equals(selectedFeature)){
             ImageFeedAdapter adapter = (ImageFeedAdapter) gridView.getAdapter();
             adapter.clearPhotos();
-            //mPhotoServiceApi.cancelRequests();
             currentPage = 1;
             //We have switch feature or category. Clear our grid to load new photos
             gridView.setAdapter(new ImageFeedAdapter(getActivity(), new ArrayList<Photo>()));
@@ -200,31 +195,6 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getSherlockActivity().getSupportMenuInflater().inflate(R.menu.feed_menu, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        if (parentActivity.isDrawerOpen()) {
-            showProgress(false);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_logout:
-                logout();
-                return true;
-            case R.id.menu_refresh:
-                reload();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void logout(){
         SharedPreferences preferences = getActivity().getSharedPreferences(FPXApplication.SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -241,7 +211,7 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
     /**
      * Infinite scroll: Load new images as the user scrolls to the bottom
      */
-    protected void prepareEndlessScroll() {
+    private void prepareEndlessScroll() {
 
         gridView.setOnScrollListener(new GridView.OnScrollListener() {
 
@@ -308,6 +278,32 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
     private void showProgress(boolean on){
         // This shows an indeterminate progress bar in the action bar
         getActivity().setProgressBarIndeterminateVisibility(on);
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getSherlockActivity().getSupportMenuInflater().inflate(R.menu.feed_menu, menu);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        if (parentActivity.isDrawerOpen()) {
+            showProgress(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                logout();
+                return true;
+            case R.id.menu_refresh:
+                reload();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
