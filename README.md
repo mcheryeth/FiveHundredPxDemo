@@ -21,13 +21,12 @@ This README is a work-in-progress, don't be surprised if some steps are missing 
 		- 500px-android-sdk : 500px android sdk ```git clone git://github.com/500px/500px-android-sdk```
 
 		Android Studio/Intellij is the recommended IDE!
-4. Open project in Android Studio
+4. Open FiveHundredPxDemo project in Android Studio
 	* Download Android Studio from http://developer.android.com/sdk/installing/studio.html
-	* Open Android Studio and click Open Project (Quick Start -> Open Project) or (File -> Open).
-	 
-If you didn't get Android Studio like you should have, do the following using Eclipse.
-5. Import projects to Eclipse
-	* In Eclipse (Import -> General -> Existing Android Project into Workspace), import the following three projects:
+	* Open Android Studio and click Open Project (Quick Start -> Open Project) or (File -> Open)
+		
+5. If you didn't get Android Studio like you should have, do the following using Eclipse. Import projects to Eclipse
+	* In Eclipse (Import -> General -> Existing Android Project into Workspace), import the following four projects:
 		- FiveHundredPxDemo : The 500px demo application
 		- volley : Google's Networking framework
 		- ActionBarSherlock : ActionBar support library.
@@ -36,10 +35,16 @@ If you didn't get Android Studio like you should have, do the following using Ec
 		
 ## Troubleshooting
 
-* Build errors in Eclipse/IntelliJ : Check the 'Problems' window first. Make sure your build paths are correct. It should all work. You have the power to fix it.
-Or just contact me :).
+* Check your Modules! Check your dependencies!
+* Build errors in Eclipse: Check the 'Problems' window first. Make sure your build paths are correct. 
+* It should all work. You have the power to fix it
+* Or just contact me :).
 
+## Screenshots
+|![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic1.png)|
+![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic2.png)|
+![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic3.png)|
 
-Enjoy Playin' and droolin' :)
+*Enjoy Playin' and droolin' :)*
 
-- Melville Cheryeth
+**- Melville Cheryeth**
