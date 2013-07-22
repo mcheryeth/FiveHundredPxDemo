@@ -203,7 +203,7 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
         editor.commit();
 
         Intent i = new Intent(getActivity(), LoginActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
 
     }
@@ -277,6 +277,9 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
 
     private void showProgress(boolean on){
         // This shows an indeterminate progress bar in the action bar
+        if(getActivity()==null)
+            return;
+
         getActivity().setProgressBarIndeterminateVisibility(on);
     }
 
