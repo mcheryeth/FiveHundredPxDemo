@@ -50,6 +50,7 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
 
     private int currentPage;
     private boolean isLoadingInBackground;
+    private boolean isFirstLoad;
 
     private final static int IMAGE_FEED_THUMBNAIL = IMAGE_SIZE.IMAGE_280x280.getPosition() + 1;
     private final static int IMAGE_DETAIL_THUMBNAIL = IMAGE_SIZE.IMAGE_900x900.getPosition() + 1;
@@ -153,13 +154,14 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
             }
         });
 
-        //Infinite scroll: Load new images as the user scrolls to the bottom
-        prepareEndlessScroll();
-
         //consumerKey = getString(R.string.px_consumer_key);
         //Log.d(ImageFeedActivity.class.getName(), "Access token is: " + token);
-
+        isFirstLoad = true;
         refreshPhotos(selectedFeature, selectedCategory);
+
+
+        //Infinite scroll: Load new images as the user scrolls to the bottom
+        prepareEndlessScroll();
 
         setHasOptionsMenu(true);
     }
@@ -245,7 +247,7 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
                 boolean isOlderAvailable = totalItemCount < PhotoServiceApi.MAX_PHOTOS;
-                if (!isLoadingInBackground && (firstVisibleItem + visibleItemCount >= totalItemCount) && isOlderAvailable) {
+                if (!isFirstLoad && !isLoadingInBackground && (firstVisibleItem + visibleItemCount >= totalItemCount) && isOlderAvailable) {
 
                     //fetch next page of photos
                     currentPage++;
@@ -279,6 +281,7 @@ public class ImageFeedFragment extends SherlockFragment implements PhotoServiceA
 
             }
         }
+        isFirstLoad = false;
         showProgress(false);
         isLoadingInBackground = false;
     }
