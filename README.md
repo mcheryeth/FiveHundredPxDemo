@@ -2,7 +2,28 @@
 
 
 This is a demo app that uses the 500px REST API to display a series of beautiful high quality photos. Feast for the eyes.
-This README is a work-in-progress, don't be surprised if some steps are missing :).
+
+## Design and Architecture
+
+The app fetches and displays high res photos from 500px on a grid. You can use the side menu to browse by feature and 
+the drop down to change the category. Tap a photo to view it in fullscreen.
+The project is organized into the following structure:
+
+* Models - These are your POJOs (Photo, User, etc) and data storage classes for caching
+* Views - This is your UI. Activities, views, adapters, etc
+* Controllers - This handles your networking. API requests to 500px, JSON parsing, callbacks to UI, etc. Currently only supports fetching photos (PhotoServiceApi)
+
+## Limitations
+
+* Always loads from network. Need a better persistence mechanism besides the disk cache. Use an indexed SQL database with cursors (fastest, more work)
+  or cache JSON in file (slower, less work) or maybe even serialize all the data (slowest, easiest).
+* Other stuff: User photos, Photo uploads, Photo share, etc
+
+## Future improvements
+
+* See above
+* Fix bugs. No code is perfect.
+* Add more features. Maybe just build out everything for fun ;)
 
 ## Setting up your dev environment
 
@@ -39,25 +60,6 @@ This README is a work-in-progress, don't be surprised if some steps are missing 
 * Build errors in Eclipse: Check the 'Problems' window first. Make sure your build paths are correct.
 * It should all work. You have the power to fix it
 * Or just contact me :)
-
-## Architecture
-
-The app follows the classic MVC pattern. The project structure is organized into:
-
-* Models - These are your POJOs (Photo, User, etc) and data storage classes for caching
-* Views - This is your UI. Activities, views, adapters, etc
-* Controllers - This handles your networking. API requests to 500Px, JSON parsing, callbacks to UI, etc. Currently only supports fetching photos (PhotoServiceApi)
-
-## Limitations
-
-* Always loads from network. Need a better persistence mechanism besides the disk cache. In the future use an indexed database to store data for quick retrieval.
-* Other stuff: User photos, Photo uploads, Photo share
-
-## Future improvements
-
-* See above
-* Fix bugs. No code is perfect.
-* Add more features. Maybe just build out everything for fun ;)
 
 ## Screenshots
 |![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic1.png)|
