@@ -66,9 +66,9 @@ The project is organized into the following structure:
 * Or just contact me :)
 
 ## Screenshots
-|![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic1.png)|
-![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic2.png)|
-![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/pics/500pxdemo_pic3.png)|
+|![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/misc/500pxdemo_pic1.png)|
+![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/misc/500pxdemo_pic2.png)|
+![alt tag](https://raw.github.com/mcheryeth/FiveHundredPxDemo/master/misc/500pxdemo_pic3.png)|
 
 *Enjoy playin' and droolin'  :)*
 
