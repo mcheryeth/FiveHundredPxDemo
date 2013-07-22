@@ -1,7 +1,7 @@
-package com.fivehundredpxdemo.android.imageloader;
+package com.fivehundredpxdemo.android.storage;
 
 import android.graphics.Bitmap;
-import android.util.LruCache;
+import android.support.v4.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
 

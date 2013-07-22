@@ -1,7 +1,7 @@
 package com.fivehundredpxdemo.android.model;
 
 import com.fivehundredpx.api.auth.AccessToken;
-import com.fivehundredpxdemo.android.Application;
+import com.fivehundredpxdemo.android.FPXApplication;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -14,7 +14,7 @@ public class CurrentUser extends User{
 
 
     @Inject
-    Application application;
+    FPXApplication application;
 
 
     public AccessToken accessToken;

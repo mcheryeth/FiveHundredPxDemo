@@ -5,7 +5,7 @@ import android.view.ViewConfiguration;
 
 import java.lang.reflect.Field;
 
-public class Application extends android.app.Application {
+public class FPXApplication extends android.app.Application {
 
 	private static Context _applicationContext;
 	

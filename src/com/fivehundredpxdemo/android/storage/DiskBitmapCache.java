@@ -1,4 +1,4 @@
-package com.fivehundredpxdemo.android.imageloader;
+package com.fivehundredpxdemo.android.storage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,8 +33,16 @@ public  class DiskBitmapCache extends DiskBasedCache implements ImageLoader.Imag
 
     public void putBitmap(String url, Bitmap bitmap) {
         final Entry entry = new Entry();
+        int byteCount;
 
-        ByteBuffer buffer = ByteBuffer.allocate(bitmap.getByteCount());
+        if (Integer.valueOf(android.os.Build.VERSION.SDK_INT) >= 12){
+            byteCount = bitmap.getByteCount();
+        }
+        else{
+            byteCount = (bitmap.getRowBytes() * bitmap.getHeight());
+        }
+
+        ByteBuffer buffer = ByteBuffer.allocate(byteCount);
         bitmap.copyPixelsToBuffer(buffer);
         entry.data = buffer.array();
 

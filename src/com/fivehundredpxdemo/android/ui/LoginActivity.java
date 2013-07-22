@@ -19,7 +19,7 @@ import com.fivehundredpx.api.PxApi;
 import com.fivehundredpx.api.auth.AccessToken;
 import com.fivehundredpx.api.tasks.UserDetailTask;
 import com.fivehundredpx.api.tasks.XAuth500pxTask;
-import com.fivehundredpxdemo.android.Application;
+import com.fivehundredpxdemo.android.FPXApplication;
 import com.fivehundredpxdemo.android.R;
 import com.fivehundredpxdemo.android.model.CurrentUser;
 import com.google.inject.Inject;
@@ -51,11 +51,11 @@ public class LoginActivity extends RoboSherlockFragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		SharedPreferences preferences = getSharedPreferences(Application.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+		SharedPreferences preferences = getSharedPreferences(FPXApplication.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 
-		final String accesToken = preferences.getString(Application.PREF_ACCESS_TOKEN, null);
+		final String accesToken = preferences.getString(FPXApplication.PREF_ACCESS_TOKEN, null);
 		final String tokenSecret = preferences
-				.getString(Application.PREF_TOKEN_SECRET, null);
+				.getString(FPXApplication.PREF_TOKEN_SECRET, null);
 
 		if (null != accesToken && null != tokenSecret) {
 			onSuccess(new AccessToken(accesToken, tokenSecret));
@@ -85,10 +85,10 @@ public class LoginActivity extends RoboSherlockFragmentActivity implements
 		
 		user.accessToken = result;
 		
-		SharedPreferences preferences = getSharedPreferences(Application.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+		SharedPreferences preferences = getSharedPreferences(FPXApplication.SHARED_PREFERENCES, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
-		editor.putString(Application.PREF_ACCESS_TOKEN, result.getToken());
-		editor.putString(Application.PREF_TOKEN_SECRET, result.getTokenSecret());
+		editor.putString(FPXApplication.PREF_ACCESS_TOKEN, result.getToken());
+		editor.putString(FPXApplication.PREF_TOKEN_SECRET, result.getTokenSecret());
 		editor.commit();
 		
 		

@@ -3,6 +3,8 @@
  */
 package com.fivehundredpxdemo.android.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -122,16 +124,18 @@ public class ImageFeedActivity extends RoboSherlockFragmentActivity implements M
         return R.layout.home_layout;
     }
 
-    @Override
-    protected void onStop() {
-        // TODO Auto-generated method stub
-        super.onStop();
-    }
+    private void showAboutDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.about_msg)
+                .setTitle(R.string.about_title);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+            }
+        });
 
-    @Override
-    protected void onDestroy() {
-        // TODO Auto-generated method stub
-        super.onDestroy();
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -141,7 +145,9 @@ public class ImageFeedActivity extends RoboSherlockFragmentActivity implements M
             case android.R.id.home:
                 toggleMenu();
                 return true;
-
+            case R.id.menu_about:
+                showAboutDialog();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

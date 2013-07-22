@@ -11,9 +11,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
-import com.fivehundredpxdemo.android.imageloader.DiskBitmapCache;
-import com.fivehundredpxdemo.android.imageloader.ImageFetcher;
 import com.fivehundredpxdemo.android.model.Photo;
+import com.fivehundredpxdemo.android.storage.DiskBitmapCache;
 
 import java.util.List;
 
@@ -23,15 +22,19 @@ import java.util.List;
 public class ImageFeedAdapter extends BaseAdapter {
     private Context mContext;
     private List<Photo> photos;
-    private ImageLoader imageLoader;
-    private final ImageFetcher imageFetcher;
+    private ImageLoader imageLoader; //volley's image loader
 
-    public ImageFeedAdapter(Context c, List<Photo> photos, ImageFetcher imageFetcher) {
+    public ImageFeedAdapter(Context c, List<Photo> photos) {
         mContext = c;
         this.photos = photos;
         RequestQueue requestQueue = Volley.newRequestQueue(c);
-        imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(c.getCacheDir())); //volley's image loader
-        this.imageFetcher = imageFetcher; //google's custom impl
+        imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(c.getCacheDir()));  //use disk cache
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+//            imageLoader = new ImageLoader(requestQueue, new DiskBitmapCache(c.getCacheDir()));  //use disk cache
+//        }
+//        else{
+//            imageLoader = new ImageLoader(requestQueue, new BitmapCache(4)); //use bitmap cache. bug in volley for disk cache
+//        }
     }
 
     public List<Photo> getPhotos() {

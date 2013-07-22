@@ -18,16 +18,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.fivehundredpxdemo.android.R;
-import com.fivehundredpxdemo.android.imageloader.DiskBitmapCache;
+import com.fivehundredpxdemo.android.storage.DiskBitmapCache;
 import com.fivehundredpxdemo.android.model.Photo;
 import com.fivehundredpxdemo.android.ui.views.TouchNetworkImageView;
 import com.fivehundredpxdemo.android.util.SystemUiHider;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
+ * This activity shows a photo in full screen. It shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
- * 
- * @see SystemUiHider
+ *
+ * Created by mcheryeth on 7/20/13.
  */
 public class ImageDetailActivity extends SherlockFragmentActivity {
 	/**
@@ -53,9 +53,7 @@ public class ImageDetailActivity extends SherlockFragmentActivity {
 	 */
 	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
 
-	/**
-	 * The instance of the {@link SystemUiHider} for this activity.
-	 */
+	// The instance of the {@link SystemUiHider} for this activity.
 	private SystemUiHider mSystemUiHider;
 
     //Volley's network image loader

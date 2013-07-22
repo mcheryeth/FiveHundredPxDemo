@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fivehundredpxdemo.android.imageloader;
+package com.fivehundredpxdemo.android.storage;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;

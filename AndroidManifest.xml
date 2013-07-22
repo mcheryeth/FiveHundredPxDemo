@@ -25,7 +25,7 @@
         </activity>
 
         <activity
-            android:name=".ui.ImageFeedActivity" android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:name=".ui.ImageFeedActivity" android:configChanges="orientation|keyboardHidden|screenSize" />
      	<activity
             android:name=".ui.ImageDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

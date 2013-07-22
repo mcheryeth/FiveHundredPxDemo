@@ -1,4 +1,4 @@
-package com.fivehundredpxdemo.android.service;
+package com.fivehundredpxdemo.android.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,27 +9,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JacksonRequest;
 import com.android.volley.toolbox.Volley;
-import com.fivehundredpxdemo.android.Application;
+import com.fivehundredpxdemo.android.FPXApplication;
 import com.fivehundredpxdemo.android.R;
-import com.fivehundredpxdemo.android.model.Photo;
 import com.fivehundredpxdemo.android.model.PhotoStream;
 
-import java.util.List;
-
 /**
+ * Main controller that services 500px REST Api async requests and returns a stream of photos.
+ *
  * Created by mcheryeth on 7/17/13.
  */
-public class PhotoServiceApi {
+public class PhotoServiceApi implements IPhotoService{
 
     private static final String TAG = "PhotoServiceApi";
 
-    public static final int MAX_PHOTOS = 600;
     private static final String BASE_URL = "https://api.500px.com/v1/photos?include_store=store_download&include_states=voted";
-    //FIXME:
-    //private final static String CONSUMER_KEY = "vFlLsHWW5WfvrCoYMLqtgIe5sOZgaLJNs7Rd4R57"; //for now
     private Context mContext;
 
-    //private static PhotoServiceApi mPhotoServiceApi;
     private RequestQueue mRequestQueue;
     private JacksonRequest currRequest;
     private PhotoServiceApiDelegate delegate;
@@ -37,7 +32,7 @@ public class PhotoServiceApi {
     private boolean isLoading = false;
 
     public interface PhotoServiceApiDelegate {
-        public void onFetchPhotosComplete(List<Photo> photos);
+        public void onFetchPhotosComplete(PhotoStream photoStream);
         public void onFetchPhotosError(String errorMsg);
 
     }
@@ -49,8 +44,9 @@ public class PhotoServiceApi {
 
     }
 
-    public void fetchPhotosFromNetwork(String feature, String sortBy, int feedThumbnailSize, int detailThumbnailSize,
-                                       int page, String category, String token){
+    @Override
+    public void addRequest(String feature, String sortBy, int feedThumbnailSize, int detailThumbnailSize,
+                           int page, String category, String token){
 
         String consumerKey = getConsumerKey();
         final String finalUrl = String.format("%s&feature=%s&sort=%s&image_size[]=%s&image_size[]=%s&page=%s&only=%s&consumer_key=%s", BASE_URL,
@@ -64,7 +60,7 @@ public class PhotoServiceApi {
                 if(response!=null && isLoading){
                     Log.d(TAG, response.toString());
                     isLoading = false;
-                    delegate.onFetchPhotosComplete(response.getPhotos());
+                    delegate.onFetchPhotosComplete(response);
                 }
 
             }
@@ -83,6 +79,7 @@ public class PhotoServiceApi {
 
     }
 
+    @Override
     public void cancelRequests(){
         isLoading = false;
         mRequestQueue.stop();
@@ -92,21 +89,12 @@ public class PhotoServiceApi {
 
 
     public String getAccessToken(){
-        SharedPreferences preferences = mContext.getSharedPreferences(Application.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        return preferences.getString(Application.PREF_ACCESS_TOKEN, null);
+        SharedPreferences preferences = mContext.getSharedPreferences(FPXApplication.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(FPXApplication.PREF_ACCESS_TOKEN, null);
     }
 
     public String getConsumerKey(){
         return mContext.getString(R.string.px_consumer_key);
     }
-
-//    public static PhotoServiceApi getSingleton(){
-//        if(mPhotoServiceApi==null){
-//            mPhotoServiceApi = new PhotoServiceApi();
-//        }
-//        return mPhotoServiceApi;
-//    }
-
-
 
 }
